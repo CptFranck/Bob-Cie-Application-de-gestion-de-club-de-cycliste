@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Projet</title>
+
+        <!-- Meta tags -->
+        
+        <meta name="author" content="François CAILLET">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- CSS Styles -->       
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+            integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <script src="js/ajax.js" defer></script>
+        <script src="js/request_run.js" defer></script>
+        <script src="js/request_subscribe.js" defer></script>
+
+        <style>
+            html {height: 100%;}
+            body {
+            min-height: 100%;
+            margin: 0;
+            padding: 0;}
+            body {position: relative;}
+            footer {position: absolute; bottom: 0;}
+            body {position: relative;}
+            footer {position: absolute; bottom: 0; left: 0; right: 0}
+        </style>
+
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" ><strong>Bob & Cie</strong></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="runners.html">Coureurs</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="run.html">Courses</a>
+                        </li>
+                    </ul>
+                    <div id="user" style="display: none">
+                        <i class="fa fa-fw fa-user">?????</i>
+                    </div>
+                </div>
+                
+            </nav>
+        </header>
+
+        <br>
+        <br>
+        
+        <div class="container">
+
+            <div class="row justify-content-end">
+                <div class="form-group container">
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Course :</label>
+                        </div>
+
+                        <select class="custom-select" id="Run">
+                        </select>
+
+                        <div class="input-group-append" id="SubscribeButton" onclick="Suscribe()">
+                            <a class="btn btn-primary" href=#> Ajouter un participant</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row " id="Runners" style="display: none;">
+                <div class="form-group container">
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Participant :</label>
+                        </div>
+
+                        <select class="custom-select" id="Runner">
+                        </select>
+
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Dossart :</label>
+                        </div>
+
+                        <input id="Flag" type="text" placeholder="000">
+
+                        <div class="input-group-append" id="ValidButton">
+                            <a class="btn btn-danger" href=# onclick="Annul()">Annuler</a>
+                            <a class="btn btn-success" href=# onclick="Valid()">Valider</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class=" container alert alert-danger" role="alert" id="Alert" style="display: none;" >
+                This is a danger alert—check it in "dossart"!
+            </div>
+            <br>
+            <br>
+            <br>
+
+            <div class="card">
+                <div class="card-header">
+                    Liste des coureurs :
+                </div>
+                <div class="container">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Dossard</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableau_coureurs">   
+                        </tbody>
+                    </table>                       
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="col-md-15 text-center" id="RankingButton"> 
+            <a href="ranking.html"><button class="btn btn-outline-dark"><i class="fas fa-trophy"></i> Classement des courses</button></a>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <footer class="page-footer font-small bg-light">
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a href="mention_legal.html"> Bob&Cie.com</a>
+            </div>
+            <!-- Copyright -->
+
+        </footer>
+    </body>
+</html>
